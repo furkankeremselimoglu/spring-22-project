@@ -52,7 +52,7 @@ public class Operators {
         int[][] result = new int[1][2];
         double min = distMat[0][0];
         for (int i=0;i<distMat.length;i++){
-            for (int j=0;j<distMat[0].length;i++){
+            for (int j=0;j<distMat[0].length;j++){
                 if (distMat[i][j] < min){
                     min = distMat[i][j];
                     result[0][0] = i;
