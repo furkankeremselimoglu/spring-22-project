@@ -21,7 +21,7 @@ public class App {
         ArrayList<Facility> openedFacilities = new ArrayList<>();
         ArrayList<Point> unassignedPoints = new ArrayList<>();
         ArrayList<ArrayList<Point>> assignmentList = new ArrayList<>();
-        
+        // Project created
     }
 }
 
