@@ -1,6 +1,8 @@
-# Facility Location Problem
+# Facility Location Problem (IE 343 Term Project)
+```bash
 Furkan Kerem Selimoğlu, S018065
 Melike Akal, S020960
+```
 
 ### Execution Data
 
