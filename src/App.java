@@ -1,4 +1,5 @@
 import java.lang.Math;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -19,12 +20,12 @@ public class App {
             Point p1 = new Point (i, points_coordinates[i][0], points_coordinates[i][1], 2*Math.random()+1);
             points[i] = p1;
         }
-        int p = 3;
         double[][] distanceMatrix = operator.distanceMatrix(facs, points);
         ArrayList<Facility> openedFacilities = new ArrayList<>();
         ArrayList<Facility> unassignedFacilities = new ArrayList<>();
         HashMap<Facility, ArrayList<Point>> assignmentList = new HashMap<>();
         // Project created
+        int P = 3;
         for(Facility facility : facs) {
             unassignedFacilities.add(facility);
         }
@@ -36,46 +37,47 @@ public class App {
             }
             sumDistances[i][0] = sum;
         }
-        while(openedFacilities.size() != p) {
-            for(int i = 0; i < p; i++) {
+        while(openedFacilities.size() != P) {
+            for(int i = 0; i < P; i++) {
                 int[][] minIndexes = operator.findMinIndex(sumDistances);
                 openedFacilities.add(facs[minIndexes[0][0]]);
                 unassignedFacilities.remove(facs[minIndexes[0][0]]);
                 sumDistances[minIndexes[0][0]][0] = Double.MAX_VALUE;
             }
         }
-        /*
+        for(Facility facility : openedFacilities) {
+            assignmentList.put(facility, new ArrayList<>());
+        }
         ArrayList<Point> remainPoints = new ArrayList<>();
         for(Point point : points) {
             remainPoints.add(point);
         }
-        for(Facility facility : openedFacilities) {
-            assignmentList.put(facility, new ArrayList<Point>());
-        }
         while(remainPoints.size() != 0) {
+            int[][] minIndexes = new int[1][2];
             double min = Double.MAX_VALUE;
-            int minFacility_index = -1;
-            int minPoint_index = -1;
-            for (Facility facility : openedFacilities) {
-                for (Point point : remainPoints) {
-                    double distance = operator.distFrom(facility.x, facility.y, point.x, point.y);
-                    if (distance < min) {
-                        min = distance;
-                        minFacility_index = facility.id;
-                        minPoint_index = point.id;
+            for(int i = 0; i < distanceMatrix.length; i++) {
+                for(int j = 0; j < distanceMatrix[0].length; j++) {
+                    if(openedFacilities.contains(facs[i]) && remainPoints.contains(points[j])) {
+                        if (distanceMatrix[i][j] < min){
+                            min = distanceMatrix[i][j];
+                            minIndexes[0][0] = i;
+                            minIndexes[0][1] = j;
+                        }
                     }
                 }
             }
-            remainPoints.remove(minPoint_index);
-            assignmentList.get(facs[minFacility_index]).add(points[minPoint_index]);
+            assignmentList.get(facs[minIndexes[0][0]]).add(points[minIndexes[0][1]]);
+            remainPoints.remove(points[minIndexes[0][1]]);
         }
-        System.out.println(assignmentList);
-
-         */
-
+        for(Facility facility : assignmentList.keySet()) {
+            System.out.print(facility + " = ");
+            System.out.println(assignmentList.get(facility));
+        }
         long stopTime = System.nanoTime();
         long elapsedTime = stopTime - startTime;
-        System.out.println("Execution Time is: " + elapsedTime + " nanoseconds");
+        double mseconds = (double) elapsedTime / 1_000_000;
+        DecimalFormat formatter = new DecimalFormat("#0.00000");
+        System.out.println("\nExecution Time is: " + formatter.format(mseconds) + " milliseconds");
     }
 }
 
