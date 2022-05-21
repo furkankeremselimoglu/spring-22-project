@@ -21,7 +21,7 @@ public class App {
         }
         int p = 3;
         double[][] distanceMatrix = operator.distanceMatrix(facs, points);
-        ArrayList<Facility> assignedFacilities = new ArrayList<>();
+        ArrayList<Facility> openedFacilities = new ArrayList<>();
         ArrayList<Facility> unassignedFacilities = new ArrayList<>();
         HashMap<Facility, ArrayList<Point>> assignmentList = new HashMap<>();
         // Project created
@@ -36,10 +36,10 @@ public class App {
             }
             sumDistances[i][0] = sum;
         }
-        while(assignedFacilities.size() != p) {
+        while(openedFacilities.size() != p) {
             for(int i = 0; i < p; i++) {
                 int[][] minIndexes = operator.findMinIndex(sumDistances);
-                assignedFacilities.add(facs[minIndexes[0][0]]);
+                openedFacilities.add(facs[minIndexes[0][0]]);
                 unassignedFacilities.remove(facs[minIndexes[0][0]]);
                 sumDistances[minIndexes[0][0]][0] = Double.MAX_VALUE;
             }
@@ -49,14 +49,14 @@ public class App {
         for(Point point : points) {
             remainPoints.add(point);
         }
-        for(Facility facility : assignedFacilities) {
+        for(Facility facility : openedFacilities) {
             assignmentList.put(facility, new ArrayList<Point>());
         }
         while(remainPoints.size() != 0) {
             double min = Double.MAX_VALUE;
             int minFacility_index = -1;
             int minPoint_index = -1;
-            for (Facility facility : assignedFacilities) {
+            for (Facility facility : openedFacilities) {
                 for (Point point : remainPoints) {
                     double distance = operator.distFrom(facility.x, facility.y, point.x, point.y);
                     if (distance < min) {
