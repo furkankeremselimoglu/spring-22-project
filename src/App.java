@@ -38,12 +38,10 @@ public class App {
             sumDistances[i][0] = sum;
         }
         while(openedFacilities.size() != P) {
-            for(int i = 0; i < P; i++) {
-                int[][] minIndexes = operator.findMinIndex(sumDistances);
-                openedFacilities.add(facs[minIndexes[0][0]]);
-                unassignedFacilities.remove(facs[minIndexes[0][0]]);
-                sumDistances[minIndexes[0][0]][0] = Double.MAX_VALUE;
-            }
+            int[][] minIndexes = operator.findMinIndex(sumDistances);
+            openedFacilities.add(facs[minIndexes[0][0]]);
+            unassignedFacilities.remove(facs[minIndexes[0][0]]);
+            sumDistances[minIndexes[0][0]][0] = Double.MAX_VALUE;
         }
         for(Facility facility : openedFacilities) {
             assignmentList.put(facility, new ArrayList<>());
@@ -76,7 +74,7 @@ public class App {
         long stopTime = System.nanoTime();
         long elapsedTime = stopTime - startTime;
         double mseconds = (double) elapsedTime / 1_000_000;
-        DecimalFormat formatter = new DecimalFormat("#0.00000");
+        DecimalFormat formatter = new DecimalFormat("#0.000");
         System.out.println("\nExecution Time is: " + formatter.format(mseconds) + " milliseconds");
     }
 }
