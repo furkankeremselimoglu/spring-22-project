@@ -1,5 +1,6 @@
-# spring-22-project
+# Facility Location Problem
 Furkan Kerem Selimoğlu, S018065
+Melike Akal, S020960
 
 ### Execution Data
 
