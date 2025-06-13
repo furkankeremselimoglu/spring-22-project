@@ -1,9 +1,9 @@
 package medianProblem;
 public class Point{
-    public int id = 0;
-    public double x = 0;
-    public double y = 0;
-    public double demand = 0;
+    private int id = 0;
+    private double x = 0;
+    private double y = 0;
+    private double demand = 0;
 
     public Point (int id, double x, double y, double demand){
         this.id = id;
