@@ -1,9 +1,10 @@
 package medianProblem;
 public class Facility{
-    public int id = 0;
-    public double x = 0;
-    public double y = 0;
-    public double supply = 0;
+    private int id = 0;
+    private double x = 0;
+    private double y = 0;
+    private double supply = 0;
+    
     public Facility(int id, double x, double y, double supply){
         this.id = id;
         this.x = x;
